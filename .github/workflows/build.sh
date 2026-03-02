@@ -28,5 +28,5 @@ function build() {
   make ARCH=arm64 SUBARCH=arm64 LLVM=1 LLVM_IAS=1 CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- O=out -j${nproc}
 }
 
-setup_toolchain()
-build()
+setup_toolchain
+build
