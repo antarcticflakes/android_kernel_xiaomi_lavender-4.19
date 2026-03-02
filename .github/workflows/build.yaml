@@ -15,60 +15,91 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install -y \
-          git \
-          device-tree-compiler \
-          lz4 \
-          xz-utils \
-          zlib1g-dev \
-          gcc \
-          g++ \
-          python3 \
-          python-is-python3 \
-          p7zip-full \
-          android-sdk-libsparse-utils \
-          erofs-utils \
-          default-jdk \
-          git \
-          gnupg \
-          flex \
-          bison \
-          gperf \
-          build-essential \
-          zip \
-          curl \
-          libc6-dev \
-          libncurses-dev \
-          libx11-dev \
-          libreadline-dev \
-          libgl1 \
-          libgl1-mesa-dev \
-          python3 \
-          make \
-          bc \
-          grep \
-          tofrodos \
-          python3-markdown \
-          libxml2-utils \
-          xsltproc \
-          zlib1g-dev \
-          python-is-python3 \
-          libc6-dev \
-          libtinfo6 \
-          make \
-          cpio \
-          kmod \
-          openssl \
-          libelf-dev \
-          pahole \
-          libssl-dev \
-          libarchive-tools \
-          zstd \
-          rsync \
-          xz-utils
+            git \
+            device-tree-compiler \
+            lz4 \
+            xz-utils \
+            zlib1g-dev \
+            gcc \
+            g++ \
+            python3 \
+            python-is-python3 \
+            p7zip-full \
+            android-sdk-libsparse-utils \
+            erofs-utils \
+            default-jdk \
+            gnupg \
+            flex \
+            bison \
+            gperf \
+            build-essential \
+            zip \
+            curl \
+            libc6-dev \
+            libncurses-dev \
+            libx11-dev \
+            libreadline-dev \
+            libgl1 \
+            libgl1-mesa-dev \
+            make \
+            bc \
+            grep \
+            tofrodos \
+            python3-markdown \
+            libxml2-utils \
+            xsltproc \
+            libtinfo6 \
+            cpio \
+            kmod \
+            openssl \
+            libelf-dev \
+            pahole \
+            libssl-dev \
+            libarchive-tools \
+            zstd \
+            rsync \
+            tree
 
-      - name: Start build
+      - name: Cache toolchain archive
+        id: cache-toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/clang-r487747c.tar.gz
+          key: toolchain-clang-r487747c
+
+      - name: Download toolchain (if not cached)
+        if: steps.cache-toolchain.outputs.cache-hit != 'true'
         run: |
-          bash .github/workflows/build.sh
+          wget -O ~/clang-r487747c.tar.gz \
+            https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r18/clang-r487747c.tar.gz
+
+      - name: Extract toolchain and set PATH
+        run: |
+          mkdir -p $HOME/toolchain
+          tar -xzf $HOME/clang-r487747c.tar.gz -C $HOME/toolchain
+          echo "$HOME/toolchain/bin" >> $GITHUB_PATH
+          echo "DEBUG: clang version"
+          clang --version
+
+      - name: Build kernel
+        run: |
+          cd $GITHUB_WORKSPACE
+
+          export ARCH=arm64
+          export SUBARCH=arm64
+          export LLVM=1
+          export LLVM_IAS=1
+          export CLANG_TRIPLE=aarch64-linux-gnu-
+          export CROSS_COMPILE=aarch64-linux-android-
+
+          make ARCH=arm64 SUBARCH=arm64 LLVM=1 LLVM_IAS=1 \
+               CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- clean
+          make ARCH=arm64 SUBARCH=arm64 LLVM=1 LLVM_IAS=1 \
+               CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- mrproper
+          make ARCH=arm64 SUBARCH=arm64 LLVM=1 LLVM_IAS=1 \
+               CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- O=out lavender_defconfig
+          make ARCH=arm64 SUBARCH=arm64 LLVM=1 LLVM_IAS=1 \
+               CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- O=out -j$(nproc)
 
       - name: Upload boot artifacts
         uses: actions/upload-artifact@v4
