@@ -1,7 +1,9 @@
 function setup_toolchain() {
+  sudo apt install -y tree
   cd $HOME
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   pwd
+  echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   ls
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r18/clang-r487747c.tar.gz
@@ -11,6 +13,12 @@ function setup_toolchain() {
   export PATH="$HOME/toolchain/bin:$PATH"
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   clang --version
+  echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
+  pwd
+  echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
+  ls
+  echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
+  tree -L 3
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
 }
 
