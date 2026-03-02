@@ -27,7 +27,6 @@ jobs:
             p7zip-full \
             android-sdk-libsparse-utils \
             erofs-utils \
-            default-jdk \
             gnupg \
             flex \
             bison \
@@ -75,10 +74,11 @@ jobs:
 
       - name: Extract toolchain and set PATH
         run: |
+          sudo apt remove -y clang clang-18
           mkdir -p $HOME/toolchain
           tar -xzf $HOME/clang-r487747c.tar.gz -C $HOME/toolchain
-          # echo "$HOME/toolchain/bin" >> $GITHUB_PATH
-          export PATH="$HOME/toolchain/bin:$PATH"
+          echo "$HOME/toolchain/bin" >> $GITHUB_PATH
+          # export PATH="$HOME/toolchain/bin:$PATH"
           echo "DEBUG: clang version"
           clang --version
 
