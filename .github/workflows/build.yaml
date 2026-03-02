@@ -77,7 +77,8 @@ jobs:
         run: |
           mkdir -p $HOME/toolchain
           tar -xzf $HOME/clang-r487747c.tar.gz -C $HOME/toolchain
-          echo "$HOME/toolchain/bin" >> $GITHUB_PATH
+          # echo "$HOME/toolchain/bin" >> $GITHUB_PATH
+          export PATH="$HOME/toolchain/bin:$PATH"
           echo "DEBUG: clang version"
           clang --version
 
