@@ -26,6 +26,8 @@ function setup_toolchain() {
 }
 
 function build() {
+  cd $HOME/work/android_kernel_xiaomi_lavender-4.19/android_kernel_xiaomi_lavender-4.19
+
   export ARCH=arm64
   export SUBARCH=arm64
   export LLVM=1
