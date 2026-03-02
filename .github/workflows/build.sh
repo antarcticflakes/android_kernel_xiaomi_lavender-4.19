@@ -6,6 +6,8 @@ function setup_toolchain() {
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   ls
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
+  tree -L 3
+  echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r18/clang-r487747c.tar.gz
   mkdir toolchain
   cd toolchain
