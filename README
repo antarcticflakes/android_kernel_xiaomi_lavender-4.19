@@ -1,19 +1,15 @@
-Linux kernel
-============
+The Aurora Kernel Project
+=========================
 
-There are several guides for kernel developers and users. These guides can
-be rendered in a number of formats, like HTML and PDF. Please read
-Documentation/admin-guide/README.rst first.
+* Still naive, still experimental.
 
-In order to build the documentation, use ``make htmldocs`` or
-``make pdfdocs``.  The formatted documentation can also be read online at:
+This project is a fork from SouthWest. It designed for Redmi Note 7(lavender)
+devices.
 
-    https://www.kernel.org/doc/html/latest/
+If you want to use this kernel, please use a RDP(Retrofit Dynamic Partitions)
+ROM and your device's original kernel version is 4.19. If your device's
+original version isn't 4.19, please find a k4.19 ROM and flash it.
 
-There are various text files in the Documentation/ subdirectory,
-several of them using the Restructured Text markup notation.
-See Documentation/00-INDEX for a list of what is contained in each file.
+This project is experimental forever. use at your own risk.
 
-Please read the Documentation/process/changes.rst file, as it contains the
-requirements for building and running the kernel, and information about
-the problems which may result by upgrading your kernel.
+Enjoy it :)
