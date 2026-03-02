@@ -87,6 +87,7 @@ jobs:
         run: |
           make mrproper
           make clean
+          make lavender_defconfig
           make prepare O=out
           cd out
           make lavender_defconfig
