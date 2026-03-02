@@ -72,13 +72,17 @@ jobs:
           wget -O ~/clang-r487747c.tar.gz \
             https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r18/clang-r487747c.tar.gz
 
-      - name: Extract toolchain and set PATH
+      - name: Extract toolchain
         run: |
           sudo apt remove -y clang clang-18
           mkdir -p $HOME/toolchain
           tar -xzf $HOME/clang-r487747c.tar.gz -C $HOME/toolchain
           echo "$HOME/toolchain/bin" >> $GITHUB_PATH
-          # export PATH="$HOME/toolchain/bin:$PATH"
+
+      # Why? https://stackoverflow.com/questions/77931676/how-to-add-a-directory-to-path-variable-in-github-actions
+      - name: Test toolchain path
+        run: |
+          echo $GITHUB_PATH
           echo "DEBUG: clang version"
           clang --version
 
