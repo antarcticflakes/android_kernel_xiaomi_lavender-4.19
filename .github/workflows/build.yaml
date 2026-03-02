@@ -66,36 +66,9 @@ jobs:
           rsync \
           xz-utils
 
-      - name: Download and extract toolchain
+      - name: Start build
         run: |
-          wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r18/clang-r487747c.tar.gz
-          mkdir toolchain
-          cd toolchain
-          tar xvf ../clang-r487747c.tar.gz
-          echo "$HOME/toolchain/bin" >> $GITHUB_PATH
-
-      - name: Set environment variables
-        run: |
-          echo "ARCH=arm64" >> $GITHUB_ENV
-          echo "SUBARCH=arm64" >> $GITHUB_ENV
-          echo "LLVM=1" >> $GITHUB_ENV
-          echo "LLVM_IAS=1" >> $GITHUB_ENV
-          echo "CLANG_TRIPLE=aarch64-linux-gnu-" >> $GITHUB_ENV
-          echo "CROSS_COMPILE=aarch64-linux-android-" >> $GITHUB_ENV
-
-      - name: Configure kernel
-        run: |
-          make mrproper
-          make clean
-          make lavender_defconfig
-          make prepare O=out
-          cd out
-          make lavender_defconfig
-
-      - name: Build kernel
-        run: |
-          cd out
-          make -j$(nproc)
+          bash .github/workflows/build.sh
 
       - name: Upload boot artifacts
         uses: actions/upload-artifact@v4
