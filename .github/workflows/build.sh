@@ -13,6 +13,7 @@ function setup_toolchain() {
   cd toolchain
   tar xvf ../clang-r487747c.tar.gz
   export PATH="$HOME/toolchain/bin:$PATH"
+  cd $HOME
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
   clang --version
   echo "DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG"
