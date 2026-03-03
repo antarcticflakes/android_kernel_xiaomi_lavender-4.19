@@ -6,11 +6,15 @@ The Autumn Kernel Project
 This project is a fork of SouthWest kernel. It designed for Redmi Note 7
 (lavender) devices.
 
-If you want to use this kernel, please use a RDP
-(Retrofit Dynamic Partitions) ROM and your device's original kernel 
-version is 4.19. If your device's original version isn't 4.19, please
-find a k4.19 ROM and flash it.
+This branch is included KernelSU by rsuntk[1]. 
+
+If you want to use this kernel, please use a RDP[2] ROM and your 
+device's original kernel version is 4.19. If your device's original 
+version isn't 4.19, please find a k4.19 ROM and flash it.
 
 This project is experimental forever. Use at your own risk.
 
 Enjoy it :)
+
+[1]: https://github.com/rsuntk/KernelSU
+[2]: Retrofit Dynamic Partitions
